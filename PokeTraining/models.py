@@ -98,7 +98,7 @@ class Pokemon(models.Model):
     )
 
     pkmn_name = models.CharField(max_length=40, default='Pikachu')
-    pkmn_nickname = models.CharField(max_length=40, default='')
+    pkmn_nickname = models.CharField(max_length=40, blank=True)
     pkmn_number = models.PositiveIntegerField(default=1, null=True)
     pkmn_level = models.PositiveIntegerField(default=1, validators=[
         MinValueValidator(1),
@@ -109,7 +109,7 @@ class Pokemon(models.Model):
                                   default='NORMAL')
     pkmn_type2 = models.CharField(max_length=40,
                                   choices=ALL_TYPES,
-                                  null=True)
+                                  blank=True)
     pkmn_gender = models.CharField(max_length=11,
                                    choices=GENDERS,
                                    default='G')
@@ -119,7 +119,7 @@ class Pokemon(models.Model):
     original_generation = models.CharField(max_length=40,
                                            choices=ALL_GENERATIONS,
                                            default='7')
-    held_item = models.CharField(max_length=40, null=True)
+    held_item = models.CharField(max_length=40, blank=True)
     ability = models.CharField(max_length=40)
     nature = models.CharField(max_length=40,
                               choices=ALL_NATURES,
@@ -128,6 +128,11 @@ class Pokemon(models.Model):
     shiny = models.BooleanField(default=False)
     captured_date = models.DateField(default=date.today)
     ev_trained = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('pkmn_number',)
+        verbose_name = 'Pokemon'
+        verbose_name_plural = 'Pokemon'
 
     def __str__(self):
         return self.pkmn_name
@@ -142,15 +147,13 @@ class Attacks(models.Model):
     attack3 = models.CharField(max_length=40, default='Double Team')
     attack4 = models.CharField(max_length=40, default='Hyper Beam')
 
+    class Meta:
+        verbose_name = 'Attack'
+        verbose_name_plural = 'Attacks'
+
     def __str__(self):
-        return "Attack 1: %s\n" \
-               "Attack 2: %s\n" \
-               "Attack 3: %s\n" \
-               "Attack 4: %s" \
-               % (self.attack1,
-                  self.attack2,
-                  self.attack3,
-                  self.attack4)
+        return "(OT ID: " + str(self.attacks.originaltrainer.trainer_id) + ") " \
+               + self.attacks.pkmn_name + '\'s Attacks'
 
 
 class Stats(models.Model):
@@ -208,8 +211,13 @@ class Stats(models.Model):
         MaxValueValidator(31)
     ])
 
+    class Meta:
+        verbose_name = 'Stat'
+        verbose_name_plural = 'Stats'
+
     def __str__(self):
-        return self.ev_hp
+        return "(OT ID: " + str(self.stats.originaltrainer.trainer_id) + ") " \
+               + self.stats.pkmn_name + '\'s Stats'
 
 
 class OriginalTrainer(models.Model):
@@ -222,6 +230,10 @@ class OriginalTrainer(models.Model):
         MaxValueValidator(999999)
     ])
 
+    class Meta:
+        verbose_name = 'Original Trainer'
+        verbose_name = 'Original Trainer'
+
     def __str__(self):
-        return "Pokemon Trainer: %s\n" \
-               "Trainer ID: %s" % (self.pkmn_ot, self.trainer_id)
+        return "(" + self.ot.pkmn_name + ") Pokemon Trainer: %s\nTrainer ID: %s" \
+               % (self.pkmn_ot, str(self.trainer_id))
