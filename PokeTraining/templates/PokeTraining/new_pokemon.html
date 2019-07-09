@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}New Pokemon | PokeBuddy{% endblock %}
+
+{% block pokemoncontent %}
+    <div class="container-fluid" style="margin-top: 75px">
+    <form method="POST">
+    {% csrf_token %}
+        <div class="form-group">
+            {{ pokemon_form.as_p }}
+        </div>
+    <button class="btn btn-primary" type="submit">Add Pokemon</button>
+    </form>
+    </div>
+{% endblock %}

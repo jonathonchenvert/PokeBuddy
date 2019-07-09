@@ -109,7 +109,8 @@ class Pokemon(models.Model):
                                   default='NORMAL')
     pkmn_type2 = models.CharField(max_length=40,
                                   choices=ALL_TYPES,
-                                  blank=True)
+                                  blank=True,
+                                  null=True)
     pkmn_gender = models.CharField(max_length=11,
                                    choices=GENDERS,
                                    default='G')
@@ -119,7 +120,7 @@ class Pokemon(models.Model):
     original_generation = models.CharField(max_length=40,
                                            choices=ALL_GENERATIONS,
                                            default='7')
-    held_item = models.CharField(max_length=40, blank=True)
+    held_item = models.CharField(max_length=40, blank=True, null=True)
     ability = models.CharField(max_length=40)
     nature = models.CharField(max_length=40,
                               choices=ALL_NATURES,

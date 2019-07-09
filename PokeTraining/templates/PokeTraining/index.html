@@ -1,51 +1,81 @@
 {% extends "base.html" %}
 
-{% block title %}PokeBuddy{% endblock %}
+{% block title %}Home | PokeBuddy{% endblock %}
 
 {% block pokemoncontent %}
-{% if all_pokemon_list %}
-    {% for pokemon in all_pokemon_list %}
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 py-3">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">{{ pokemon.pkmn_name }}</h4>
-                    <small class="text-muted cat">
-                        <i class="far text-info"></i>Pokemon #: {{ pokemon.pkmn_number }}
-                        <i class="fas text-info"></i>Nature: {{ pokemon.nature }}
-                    </small>
-                <!--TODO: Geez, optimize the display of their stats somehow...-->
-                    {% if pokemon.stats.ev_hp != 0 %}
-                        <p class="card-text">HP EVs: {{ pokemon.stats.ev_hp }}</p>
-                    {% endif %}
-                    {% if pokemon.stats.ev_atk != 0 %}
-                        <p class="card-text">Attack EVs: {{ pokemon.stats.ev_atk|default_if_none:"" }}</p>
-                    {% endif %}
-                    {% if pokemon.stats.ev_def != 0 %}
-                        <p class="card-text">Defense EVs: {{ pokemon.stats.ev_def }}</p>
-                    {% endif %}
-                    {% if pokemon.stats.ev_satk != 0 %}
-                        <p class="card-text">Special Attack EVs: {{ pokemon.stats.ev_satk }}</p>
-                    {% endif %}
-                    {% if pokemon.stats.ev_sdef != 0 %}
-                        <p class="card-text">Special Defense EVs: {{ pokemon.stats.ev_sdef }}</p>
-                    {% endif %}
-                    {% if pokemon.stats.ev_spd != 0 %}
-                        <p class="card-text">Speed EVs: {{ pokemon.stats.ev_spd }}</p>
-                    {% endif %}
+    <div class="box">
+        <div class="container-fluid" style="margin-top: 75px">
+     	    <div class="row">
 
-                    <p class="card-text">Sample text for display purposes</p>
-                    <a href="#" class="btn btn-info">Edit</a>
-                </div>
+            {% if all_pokemon_list %}
+                {% for pokemon in all_pokemon_list %}
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 py-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ pokemon.pkmn_name }}</h4>
+                                <small class="text-muted cat">
+                                    <i class="far text-info"></i>Pokemon #: {{ pokemon.pkmn_number }}
+                                    <i class="fas text-info"></i>Nature: {{ pokemon.nature }}
+                                </small>
 
-                <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                    <div class="views">Date captured: {{ pokemon.captured_date }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-{% else %}
+                                <p class="card-text">Sample text for display purposes</p>
+                                <table class="table table-sm table-hover mx-auto w-50">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Stats</th>
+                                        <th scope="col">IVs</th>
+                                        <th scope="col">EVs</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">HP</th>
+                                        <td>{{ pokemon.stats.iv_hp }}</td>
+                                        <td>{{ pokemon.stats.ev_hp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ATK</th>
+                                        <td>{{ pokemon.stats.iv_atk }}</td>
+                                        <td>{{ pokemon.stats.ev_atk }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">DEF</th>
+                                        <td>{{ pokemon.stats.iv_def }}</td>
+                                        <td>{{ pokemon.stats.ev_def }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">S.ATK</th>
+                                        <td>{{ pokemon.stats.iv_satk }}</td>
+                                        <td>{{ pokemon.stats.ev_satk }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">S.DEF</th>
+                                        <td>{{ pokemon.stats.iv_sdef }}</td>
+                                        <td>{{ pokemon.stats.ev_sdef }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">SPD</th>
+                                        <td>{{ pokemon.stats.iv_spd }}</td>
+                                        <td>{{ pokemon.stats.ev_spd }}</td>
+                                    </tr>
+                                    </tbody>
+
+                                </table>
+                                <a href="#" class="btn btn-info">Edit</a>
+                            </div>
+
+                            <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                                <div class="views">Date captured: {{ pokemon.captured_date }}</div>
+                            </div> <!--/card-footer-->
+                            <a href="#" class="btn btn-danger btn-xs">Delete</a>
+                        </div> <!--/card-->
+                    </div> <!--/col-->
+                {% endfor %}
+                {% else %}
     <p>No Pokemon are listed at the moment.</p>
 
 {% endif %}
+            </div> <!--/row-->
+        </div> <!--/container-fluid-->
+    </div> <!--/box-->
 {% endblock %}
