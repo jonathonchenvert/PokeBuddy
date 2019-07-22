@@ -2,11 +2,32 @@ from django.forms import ModelForm
 
 from .models import Pokemon, Stats, Attacks, OriginalTrainer
 
+import pokepy
+
 
 class PokemonForm(ModelForm):
     class Meta:
         model = Pokemon
-        fields = '__all__'
+        fields = ('pkmn_name', 'pkmn_nickname', 'pkmn_level', 'pkmn_gender',
+                  'ball_captured', 'original_generation', 'nature')
+
+    def save(self, commit=True):
+        pokemon = super(PokemonForm, self).save(commit=False)
+        entered_pkmn = pokepy.V2Client().get_pokemon(self.cleaned_data['pkmn_name'])
+        pokemon.pkmn_name = entered_pkmn.name.capitalize()
+        pokemon.pkmn_number = entered_pkmn.id
+        pokemon.pkmn_type1 = entered_pkmn.types[0].type.name.upper()
+        pokemon.ability = entered_pkmn.abilities[0].ability.name.capitalize()
+
+        try:
+            pokemon.pkmn_type2 = entered_pkmn.types[1].type.name.upper()
+        except IndexError:
+            pass
+
+        if commit:
+            pokemon.save()
+
+        return pokemon
 
 
 class StatsForm(ModelForm):

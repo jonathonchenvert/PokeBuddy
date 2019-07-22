@@ -21,13 +21,14 @@ def new_pokemon(request):
     pokemon_form = PokemonForm(request.POST or None)
 
     if request.method == "POST" and pokemon_form.is_valid():
-        cd_pokemon = pokemon_form.cleaned_data
+
+        pokemon_form.save()
         # stats_form = StatsForm(data=request.POST)
         # attacks_form = AttacksForm(data=request.POST)
         # ot_form = OriginalTrainerForm(data=request.POST)
 
-        if pokemon_form.is_valid():
-            pokemon_form.save()
+        #if pokemon_form.is_valid():
+         #   pokemon_form.save()
             # pokemon.stats = stats_form.save()
             # pokemon.attacks = attacks_form.save()
             # pokemon.ot = ot_form.save()
@@ -45,9 +46,7 @@ def new_pokemon(request):
             # ot.ot = pokemon
             # ot.save()
 
-            return redirect('/')
-    else:
-        pokemon_form = PokemonForm()
+        return redirect('/')
         # stats_form = StatsForm()
         # attacks_form = AttacksForm()
         # ot_form = OriginalTrainerForm()

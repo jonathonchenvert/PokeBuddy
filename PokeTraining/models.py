@@ -99,7 +99,7 @@ class Pokemon(models.Model):
 
     pkmn_name = models.CharField(max_length=40, default='Pikachu')
     pkmn_nickname = models.CharField(max_length=40, blank=True)
-    pkmn_number = models.PositiveIntegerField(default=1, null=True)
+    pkmn_number = models.PositiveIntegerField(null=True)
     pkmn_level = models.PositiveIntegerField(default=1, validators=[
         MinValueValidator(1),
         MaxValueValidator(100)

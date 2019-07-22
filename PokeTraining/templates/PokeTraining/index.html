@@ -14,8 +14,14 @@
                             <div class="card-body">
                                 <h4 class="card-title">{{ pokemon.pkmn_name }}</h4>
                                 <small class="text-muted cat">
-                                    <i class="far text-info"></i>Pokemon #: {{ pokemon.pkmn_number }}
-                                    <i class="fas text-info"></i>Nature: {{ pokemon.nature }}
+                                    <i class="far text-info">Pokemon #: {{ pokemon.pkmn_number }}</i>
+                                    <i class="fas text-info">Nature: {{ pokemon.nature }}</i>
+                                </small>
+                                <small class="text-muted cat">
+                                    <i class="far text-info">Type: {{ pokemon.pkmn_type1 }}</i>
+                                    {% if pokemon.pkmn_type2|length > 0 %}
+                                        <i class="fas text-info">Type: {{ pokemon.pkmn_type2 }}</i>
+                                    {% endif %}
                                 </small>
 
                                 <p class="card-text">Sample text for display purposes</p>
