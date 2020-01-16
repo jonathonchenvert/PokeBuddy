@@ -3,7 +3,6 @@
 {% block title %}Home | PokeBuddy{% endblock %}
 
 {% block pokemoncontent %}
-    {% include "PokeTraining/base_modal.html" %}
     <div class="box">
         <div class="container-fluid" style="margin-top: 75px">
      	    <div class="row">
@@ -69,7 +68,7 @@
                                     </tbody>
 
                                 </table>
-                                <button class="edit-pkmn btn btn-sm btn-primary" type="button" data-id="{% url 'PokeTraining:edit_pkmn' pkmn.pk %}">Edit</button>
+                                <button class="btn btn-sm btn-primary" type="button" data-id="#">Edit</button>
                             </div> <!-- /card-body -->
 
                             <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
@@ -88,12 +87,3 @@
         </div> <!--/container-fluid-->
     </div> <!--/box-->
 {% endblock %}
-
-<script type="text/javascript">
-    $(function () {
-        // Update Pokemon
-        $(".edit-pkmn").each(function () {
-            $(this).modalForm({formURL: $(this).data('id')});
-        });
-    });
-</script>

@@ -2,12 +2,10 @@ from django.forms import ModelForm
 
 from .models import Pokemon, Stats, Attacks, OriginalTrainer
 
-from bootstrap_modal_forms.forms import BSModalForm
-
 import pokepy
 
-# PokemonForm was previously an instance of ModelForm, changed to BSModalForm for testing
-class PokemonForm(BSModalForm):
+
+class PokemonForm(ModelForm):
     class Meta:
         model = Pokemon
         fields = ['pkmn_name', 'pkmn_nickname', 'pkmn_level', 'pkmn_gender',
