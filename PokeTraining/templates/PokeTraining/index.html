@@ -3,24 +3,26 @@
 {% block title %}Home | PokeBuddy{% endblock %}
 
 {% block pokemoncontent %}
+    {% include "PokeTraining/base_modal.html" %}
     <div class="box">
         <div class="container-fluid" style="margin-top: 75px">
      	    <div class="row">
 
-            {% if all_pokemon_list %}
-                {% for pokemon in all_pokemon_list %}
+            {% if pokemon %}
+                {% for pkmn in pokemon %}
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 py-3">
                         <div class="card">
+
                             <div class="card-body">
-                                <h4 class="card-title">{{ pokemon.pkmn_name }}</h4>
+                                <h4 class="card-title">{{ pkmn.pkmn_name }}</h4>
                                 <small class="text-muted cat">
-                                    <i class="far text-info">Pokemon #: {{ pokemon.pkmn_number }}</i>
-                                    <i class="fas text-info">Nature: {{ pokemon.nature }}</i>
+                                    <i class="far text-info">Pokemon #: {{ pkmn.pkmn_number }}</i>
+                                    <i class="fas text-info">Nature: {{ pkmn.nature }}</i>
                                 </small>
                                 <small class="text-muted cat">
-                                    <i class="far text-info">Type: {{ pokemon.pkmn_type1 }}</i>
-                                    {% if pokemon.pkmn_type2|length > 0 %}
-                                        <i class="fas text-info">Type: {{ pokemon.pkmn_type2 }}</i>
+                                    <i class="far text-info">Type: {{ pkmn.pkmn_type1 }}</i>
+                                    {% if pkmn.pkmn_type2|length > 0 %}
+                                        <i class="fas text-info">Type: {{ pkmn.pkmn_type2 }}</i>
                                     {% endif %}
                                 </small>
 
@@ -36,43 +38,44 @@
                                     <tbody>
                                     <tr>
                                         <th scope="row">HP</th>
-                                        <td>{{ pokemon.stats.iv_hp }}</td>
-                                        <td>{{ pokemon.stats.ev_hp }}</td>
+                                        <td>{{ pkmn.stats.iv_hp }}</td>
+                                        <td>{{ pkmn.stats.ev_hp }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">ATK</th>
-                                        <td>{{ pokemon.stats.iv_atk }}</td>
-                                        <td>{{ pokemon.stats.ev_atk }}</td>
+                                        <td>{{ pkmn.stats.iv_atk }}</td>
+                                        <td>{{ pkmn.stats.ev_atk }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">DEF</th>
-                                        <td>{{ pokemon.stats.iv_def }}</td>
-                                        <td>{{ pokemon.stats.ev_def }}</td>
+                                        <td>{{ pkmn.stats.iv_def }}</td>
+                                        <td>{{ pkmn.stats.ev_def }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">S.ATK</th>
-                                        <td>{{ pokemon.stats.iv_satk }}</td>
-                                        <td>{{ pokemon.stats.ev_satk }}</td>
+                                        <td>{{ pkmn.stats.iv_satk }}</td>
+                                        <td>{{ pkmn.stats.ev_satk }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">S.DEF</th>
-                                        <td>{{ pokemon.stats.iv_sdef }}</td>
-                                        <td>{{ pokemon.stats.ev_sdef }}</td>
+                                        <td>{{ pkmn.stats.iv_sdef }}</td>
+                                        <td>{{ pkmn.stats.ev_sdef }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">SPD</th>
-                                        <td>{{ pokemon.stats.iv_spd }}</td>
-                                        <td>{{ pokemon.stats.ev_spd }}</td>
+                                        <td>{{ pkmn.stats.iv_spd }}</td>
+                                        <td>{{ pkmn.stats.ev_spd }}</td>
                                     </tr>
                                     </tbody>
 
                                 </table>
-                                <a href="#" class="btn btn-info">Edit</a>
-                            </div>
+                                <button class="edit-pkmn btn btn-sm btn-primary" type="button" data-id="{% url 'PokeTraining:edit_pkmn' pkmn.pk %}">Edit</button>
+                            </div> <!-- /card-body -->
 
                             <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                                <div class="views">Date captured: {{ pokemon.captured_date }}</div>
+                                <div class="views">Date captured: {{ pkmn.captured_date }}</div>
                             </div> <!--/card-footer-->
+
                             <a href="#" class="btn btn-danger btn-xs">Delete</a>
                         </div> <!--/card-->
                     </div> <!--/col-->
@@ -85,3 +88,12 @@
         </div> <!--/container-fluid-->
     </div> <!--/box-->
 {% endblock %}
+
+<script type="text/javascript">
+    $(function () {
+        // Update Pokemon
+        $(".edit-pkmn").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+    });
+</script>

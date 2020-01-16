@@ -1,10 +1,15 @@
-from django.shortcuts import render, redirect, reverse
+# from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views import generic
 
 from .models import Pokemon
-from .forms import PokemonForm, StatsForm, AttacksForm, OriginalTrainerForm
+from .forms import PokemonForm  # , StatsForm, AttacksForm, OriginalTrainerForm
+
+from bootstrap_modal_forms.generic import BSModalCreateView, BSModalUpdateView
 
 
 # Create your views here.
+
 def index(request):
     template_name = 'PokeTraining/index.html'
     all_pokemon_list = Pokemon.objects.order_by('pkmn_number')
@@ -60,3 +65,24 @@ def new_pokemon(request):
     # args['ot_form'] = ot_form
 
     return render(request, template_name, context)
+
+
+class Index(generic.ListView):
+    model = Pokemon
+    context_object_name = 'pokemon'
+    template_name = 'PokeTraining/index.html'
+
+
+class PokemonAddView(BSModalCreateView):
+    template_name = 'PokeTraining/add_pkmn.html'
+    form_class = PokemonForm
+    success_message = 'Success! Pokemon has been added.'
+    success_url = reverse_lazy('PokeTraining:index')
+
+
+class PokemonUpdateView(BSModalUpdateView):
+    model = Pokemon
+    template_name = 'PokeTraining/edit_pkmn.html'
+    form_class = PokemonForm
+    success_message = 'Success! Pokemon has been updated.'
+    success_url = reverse_lazy('PokeTraining:index')

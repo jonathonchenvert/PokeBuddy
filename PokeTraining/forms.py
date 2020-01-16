@@ -2,14 +2,16 @@ from django.forms import ModelForm
 
 from .models import Pokemon, Stats, Attacks, OriginalTrainer
 
+from bootstrap_modal_forms.forms import BSModalForm
+
 import pokepy
 
-
-class PokemonForm(ModelForm):
+# PokemonForm was previously an instance of ModelForm, changed to BSModalForm for testing
+class PokemonForm(BSModalForm):
     class Meta:
         model = Pokemon
-        fields = ('pkmn_name', 'pkmn_nickname', 'pkmn_level', 'pkmn_gender',
-                  'ball_captured', 'original_generation', 'nature')
+        fields = ['pkmn_name', 'pkmn_nickname', 'pkmn_level', 'pkmn_gender',
+                  'ball_captured', 'original_generation', 'nature']
 
     def save(self, commit=True):
         pokemon = super(PokemonForm, self).save(commit=False)
