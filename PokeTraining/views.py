@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect, reverse
+# from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views import generic
+from django.shortcuts import render, redirect
 
 from .models import Pokemon
-from .forms import PokemonForm, StatsForm, AttacksForm, OriginalTrainerForm
+from .forms import PokemonForm  # , StatsForm, AttacksForm, OriginalTrainerForm
 
 
-# Create your views here.
 def index(request):
     template_name = 'PokeTraining/index.html'
     all_pokemon_list = Pokemon.objects.order_by('pkmn_number')
@@ -60,3 +62,9 @@ def new_pokemon(request):
     # args['ot_form'] = ot_form
 
     return render(request, template_name, context)
+
+
+class Index(generic.ListView):
+    model = Pokemon
+    context_object_name = 'pokemon'
+    template_name = 'PokeTraining/index.html'

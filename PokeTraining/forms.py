@@ -8,8 +8,8 @@ import pokepy
 class PokemonForm(ModelForm):
     class Meta:
         model = Pokemon
-        fields = ('pkmn_name', 'pkmn_nickname', 'pkmn_level', 'pkmn_gender',
-                  'ball_captured', 'original_generation', 'nature')
+        fields = ['pkmn_name', 'pkmn_nickname', 'pkmn_level', 'pkmn_gender',
+                  'ball_captured', 'original_generation', 'nature']
 
     def save(self, commit=True):
         pokemon = super(PokemonForm, self).save(commit=False)

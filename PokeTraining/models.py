@@ -233,7 +233,6 @@ class OriginalTrainer(models.Model):
 
     class Meta:
         verbose_name = 'Original Trainer'
-        verbose_name = 'Original Trainer'
 
     def __str__(self):
         return "(" + self.ot.pkmn_name + ") Pokemon Trainer: %s\nTrainer ID: %s" \
