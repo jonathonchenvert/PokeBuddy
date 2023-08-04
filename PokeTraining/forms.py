@@ -1,8 +1,6 @@
 from django.forms import ModelForm
-
 from .models import Pokemon, Stats, Attacks, OriginalTrainer
-
-import pokepy
+import pokebase as pb
 
 
 class PokemonForm(ModelForm):
@@ -13,7 +11,7 @@ class PokemonForm(ModelForm):
 
     def save(self, commit=True):
         pokemon = super(PokemonForm, self).save(commit=False)
-        entered_pkmn = pokepy.V2Client().get_pokemon(self.cleaned_data['pkmn_name'])
+        entered_pkmn = pb.pokemon(self.cleaned_data['pkmn_name'])
         pokemon.pkmn_name = entered_pkmn.name.capitalize()
         pokemon.pkmn_number = entered_pkmn.id
         pokemon.pkmn_type1 = entered_pkmn.types[0].type.name.upper()

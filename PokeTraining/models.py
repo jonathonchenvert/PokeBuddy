@@ -42,7 +42,8 @@ class Pokemon(models.Model):
         ('5', 'Unova'),
         ('6', 'Kalos'),
         ('7', 'Alola'),
-        ('8', 'Galar')
+        ('8', 'Galar'),
+        ('9', 'Paldea'),
     )
 
     ALL_BALLS = (
@@ -67,7 +68,26 @@ class Pokemon(models.Model):
         ('QUICK', 'Quick Ball'),
         ('PREMIER', 'Premier Ball'),
         ('TIMER', 'Timer Ball'),
-        ('REPEAT', 'Repeat Ball')
+        ('REPEAT', 'Repeat Ball'),
+        ('SAFARI', 'Safari Ball'),
+        ('SPORT', 'Sport Ball'),
+        ('CHERISH', 'Cherish Ball'),
+        ('DREAM', 'Dream Ball'),
+        ('HISUI_POKE', 'Poke Ball (Hisuian)'),
+        ('HISUI_GREAT', 'Great Ball (Hisuian)'),
+        ('HISUI_ULTRA', 'Ultra Ball (Hisuian)'),
+        ('HISUI_HEAVY', 'Heavy Ball (Hisuian)'),
+        ('HISUI_LEADEN', 'Leaden Ball (Hisuian)'),
+        ('HISUI_GIGATON', 'Gigaton Ball (Hisuian)'),
+        ('HISUI_FEATHER', 'Feather Ball (Hisuian)'),
+        ('HISUI_WING', 'Wing Ball (Hisuian)'),
+        ('HISUI_JET', 'Jet Ball (Hisuian)'),
+        ('HISUI_ORIGIN', 'Origin Ball (Hisuian)'),
+        ('HISUI_STRANGE', 'Strange Ball (Hisuian)'),
+    )
+
+    ALL_RIBBONS = ( # TODO Import all the ribbons
+        ('GEN_3_CHAMPION', 'Champion Ribbon (Gen 3)'),
     )
 
     ALL_TYPES = (
@@ -91,12 +111,27 @@ class Pokemon(models.Model):
         ('FAIRY', 'Fairy')
     )
 
+    ALL_LANGUAGES = (
+        ('ENGLISH', 'English'),
+    )
+
+    ALL_MARKINGS = (
+        ('CIRCLE', 'Circle'),
+        ('TRIANGLE', 'Triangle'),
+        ('SQUARE', 'Square'),
+        ('HEART', 'Heart'),
+        ('STAR', 'Star'),
+        ('DIAMOND', 'Diamond'),
+    )
+
     GENDERS = (
         ('F', 'Female'),
         ('M', 'Male'),
         ('G', 'Genderless')
     )
 
+    # Defining model fields
+    id = models.BigAutoField(primary_key=True)
     pkmn_name = models.CharField(max_length=40, default='Pikachu')
     pkmn_nickname = models.CharField(max_length=40, blank=True)
     pkmn_number = models.PositiveIntegerField(null=True)
@@ -114,6 +149,13 @@ class Pokemon(models.Model):
     pkmn_gender = models.CharField(max_length=11,
                                    choices=GENDERS,
                                    default='G')
+    pkmn_language = models.CharField(max_length=40,
+                                     choices=ALL_LANGUAGES,
+                                     default='ENGLISH')
+    pkmn_markings = models.CharField(max_length=40,
+                                     choices=ALL_MARKINGS,
+                                     blank=True,
+                                     null=True)
     ball_captured = models.CharField(max_length=40,
                                      choices=ALL_BALLS,
                                      default='POKE')
@@ -129,6 +171,7 @@ class Pokemon(models.Model):
     shiny = models.BooleanField(default=False)
     captured_date = models.DateField(default=date.today)
     ev_trained = models.BooleanField(default=False)
+    # ribbons
 
     class Meta:
         ordering = ('pkmn_number',)
