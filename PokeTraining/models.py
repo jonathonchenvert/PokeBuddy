@@ -196,8 +196,7 @@ class Attacks(models.Model):
         verbose_name_plural = 'Attacks'
 
     def __str__(self):
-        return "(OT ID: " + str(self.attacks.originaltrainer.trainer_id) + ") " \
-               + self.attacks.pkmn_name + '\'s Attacks'
+        return f"(OT ID: {str(self.attacks.originaltrainer.trainer_id)}) {self.attacks.pkmn_name}'s Attacks"
 
 
 class Stats(models.Model):
@@ -260,8 +259,7 @@ class Stats(models.Model):
         verbose_name_plural = 'Stats'
 
     def __str__(self):
-        return "(OT ID: " + str(self.stats.originaltrainer.trainer_id) + ") " \
-               + self.stats.pkmn_name + '\'s Stats'
+        return f"(OT ID: {str(self.stats.originaltrainer.trainer_id)}) {self.stats.pkmn_name}'s Stats"
 
 
 class OriginalTrainer(models.Model):
@@ -278,5 +276,4 @@ class OriginalTrainer(models.Model):
         verbose_name = 'Original Trainer'
 
     def __str__(self):
-        return "(" + self.ot.pkmn_name + ") Pokemon Trainer: %s\nTrainer ID: %s" \
-               % (self.pkmn_ot, str(self.trainer_id))
+        return f"({self.ot.pkmn_name}) Pokemon Trainer: {self.pkmn_ot}\nTrainer ID: {str(self.trainer_id)}"
