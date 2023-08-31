@@ -39,7 +39,11 @@ build:
 	@docker-compose build
 
 test:
-	@docker-compose run --rm web python ./manage.py test ${TESTSCOPE} ${TESTFLAGS}
+	@docker-compose run --rm web python ./manage.py test 
+
+coverage:
+	@docker-compose run --rm web coverage run ./manage.py test -v 2
+	@docker-compose run --rm web coverage html
 
 testwarn:
 	@docker-compose run --rm web python -Wall manage.py test ${TESTSCOPE} ${TESTFLAGS}

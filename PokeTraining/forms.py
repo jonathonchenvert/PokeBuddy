@@ -11,7 +11,8 @@ class PokemonForm(ModelForm):
 
     def save(self, commit=True):
         pokemon = super(PokemonForm, self).save(commit=False)
-        entered_pkmn = pb.pokemon(self.cleaned_data['pkmn_name'])
+        pokemon_name = self.cleaned_data['pkmn_name'].lower()
+        entered_pkmn = pb.pokemon(pokemon_name) # pokebase only accepts lower case pokemon names; other input may yield unexpected results
         pokemon.pkmn_name = entered_pkmn.name.capitalize()
         pokemon.pkmn_number = entered_pkmn.id
         pokemon.pkmn_type1 = entered_pkmn.types[0].type.name.upper()
